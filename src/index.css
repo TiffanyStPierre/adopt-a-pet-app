@@ -41,7 +41,7 @@ h2 {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -52,7 +52,7 @@ h2 {
   width: 64px;
   height: 64px;
   border: 8px solid;
-  border-color: #00cc66 transparent #00cc66 transparent;
+  border-color: #89043D transparent #89043D transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
@@ -279,4 +279,28 @@ h1:hover {
 
 .hiw-list li {
   margin: 1.75% 0;
+}
+
+/*  Browse Page */
+
+.browse-listings-cards {
+  display: flex;
+}
+
+.pet-listing-link {
+  text-decoration: none;
+  color: #262626;
+}
+
+.pet-listing-card {
+  list-style: none;
+  padding: 3%;
+  margin: 2%;
+  background-color: #EEE7ED;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  text-align: center;
+}
+
+.pet-listing-card-img {
+  max-height: 200px;
 }

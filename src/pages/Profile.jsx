@@ -83,6 +83,9 @@ export default function Profile() {
                         />
                     </form>
                 </div>
+                <Link to='/create-listing' className='create-listing-link'>
+                    Create A New Pet Listing
+                </Link>
             </section>
         </div>
     )

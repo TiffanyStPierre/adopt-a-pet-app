@@ -24,8 +24,20 @@ export default function Browse() {
                 limit(10)
             );
 
+            const q2 = query(
+                listingsRef,
+                orderBy('timestamp', 'desc'),
+                limit(10)
+            );
+
             // Execute query
-            const querySnap = await getDocs(q);
+            let querySnap;
+
+            if (selectedPet === 'all') {
+                querySnap = await getDocs(q2);
+            } else {
+                querySnap = await getDocs(q);
+            }
 
             const listings = [];
 

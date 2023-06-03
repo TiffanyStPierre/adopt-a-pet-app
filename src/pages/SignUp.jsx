@@ -48,6 +48,7 @@ export default function SignUp() {
 
         } catch (error) {
             toast.error('Unable to create account. Please try again.');
+            console.log(error);
         }
     }
 

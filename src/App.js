@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Contact from './pages/Contact';
+import EditListing from './pages/EditListing';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/browse' element={<Browse />} />
           <Route path='/create-listing' element={<CreateListing />} />
+          <Route path='/edit-listing/:listingId' element={<EditListing />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/how-it-works' element={<HowItWorks />} />
           <Route path='/:listingId' element={<Listing />} />

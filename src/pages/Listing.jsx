@@ -41,18 +41,6 @@ export default function Listing() {
 
     return (
         <main>
-            <div className='share-icon-div' onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                setShareLinkCopied(true);
-                setTimeout(() => {
-                    setShareLinkCopied(false);
-                }, 2000)
-            }}>
-                <img src={shareIcon} alt='Share icon'/>
-            </div>
-
-            {shareLinkCopied && <p className='link-copied'>Link Copied!</p>}
-
             <div className='listing-details'>
                 <h2 className='listing-name'>{listing.name}</h2>
                 <p className='listing-location'>{listing.city}, {listing.province}</p>
@@ -65,6 +53,19 @@ export default function Listing() {
                 <p className='listing-fee'>{`Adoption fee: $${listing.fee}`}</p>
                 <p className='listing-description'>{listing.description}</p>
             </div>
+
+            <div className='share-icon-div' onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                setShareLinkCopied(true);
+                setTimeout(() => {
+                    setShareLinkCopied(false);
+                }, 2000)
+            }}>
+                <img src={shareIcon} alt='Share icon'/>
+                <p>Share Listing</p>
+            </div>
+
+            {shareLinkCopied && <p className='link-copied'>Link Copied!</p>}
 
             {auth.currentUser?.uid !== listing.userRef && <Link to={`/contact/${listing.userRef}?listingName=${listing.name}?listingId=${params.listingId}`}
             className='btn-dark'>

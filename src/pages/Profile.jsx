@@ -6,7 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
 import { toast } from 'react-toastify';
 
-export default function Profile() {
+export default function Profile({listing}) {
     const auth = getAuth();
     const user = auth.currentUser;
     const [loading, setLoading] = useState(true);
@@ -85,6 +85,8 @@ export default function Profile() {
         }
     }
 
+    const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`);
+
     return (
         <div className='profile-page'>
             <h2>My Profile</h2>
@@ -129,14 +131,15 @@ export default function Profile() {
                             key={listing.id}
                             listing={listing.data}
                             id={listing.id}
-                            onDelete={() => onDelete(listing.id)}
+                            onDelete={() => onDelete(listing.id, listing.imgUrls)}
+                            onEdit={() => onEdit(listing.id)}
                             />
                         ))}
                     </ul>
                     </>
                 )}    
 
-                <Link to='/create-listing' className='create-listing-link'>
+                <Link to='/create-listing' className='create-listing-link btn-dark'>
                     Create A New Pet Listing
                 </Link>
             </section>

@@ -10,6 +10,8 @@ export default function Browse() {
     const [selectedPet, setSelectedPet] = useState('all');
     const [loading, setLoading] = useState(false);
     const [listings, setListings] = useState(null);
+    const [lastFetchedListing, setLastFetchedListing] = useState(null);
+    const [lastListingNumber, setLastListingNumber] = useState(0);
 
     const fetchListings = async () => {
         try {
@@ -21,13 +23,13 @@ export default function Browse() {
                 listingsRef,
                 where('type', '==', { selectedPet }.selectedPet),
                 orderBy('timestamp', 'desc'),
-                limit(10)
+                limit(8)
             );
 
             const q2 = query(
                 listingsRef,
                 orderBy('timestamp', 'desc'),
-                limit(10)
+                limit(8)
             );
 
             // Execute query
@@ -38,6 +40,15 @@ export default function Browse() {
             } else {
                 querySnap = await getDocs(q);
             }
+
+            const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+            setLastFetchedListing(lastVisible);
+
+            const lastNumber = querySnap.docs.length;
+            setLastListingNumber(lastNumber);
+
+            console.log(lastListingNumber);
+            console.log(lastFetchedListing);
 
             const listings = [];
 
@@ -64,6 +75,62 @@ export default function Browse() {
         setLoading(true);
 
         fetchListings();
+    }
+
+    const onFetchMoreListings = async () => {
+        try {
+            // Get reference
+            const listingsRef = collection(db, 'listings');
+
+            // Create a query
+            const q = query(
+                listingsRef,
+                where('type', '==', { selectedPet }.selectedPet),
+                orderBy('timestamp', 'desc'),
+                startAfter(lastFetchedListing),
+                limit(8)
+            );
+
+            const q2 = query(
+                listingsRef,
+                orderBy('timestamp', 'desc'),
+                startAfter(lastFetchedListing),
+                limit(8)
+            );
+
+            // Execute query
+            let querySnap;
+
+            if (selectedPet === 'all') {
+                querySnap = await getDocs(q2);
+            } else {
+                querySnap = await getDocs(q);
+            }
+
+            const lastVisible = querySnap.docs[querySnap.docs.length - 1];
+            setLastFetchedListing(lastVisible);
+
+            const lastNumber = querySnap.docs.length;
+            setLastListingNumber(lastNumber);
+
+            const listings = [];
+
+            querySnap.forEach((doc) => {
+                return listings.push({
+                    id: doc.id,
+                    data: doc.data()
+                });
+            })
+
+            setListings((prevState) => [...prevState, ...listings]);
+            setLoading(false);
+
+
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+            toast.error('Could not retrieve pets. Please try again.');
+        }
     }
 
 
@@ -104,6 +171,12 @@ export default function Browse() {
             ) : (
                 <p>No listings found.</p>
             )}
+            <br/>
+            <br/>
+            {lastListingNumber > 7 ?
+                <p className='load-more btn-dark' onClick={onFetchMoreListings}>Load More Pets</p>
+                : <p></p>
+            }
         </div>
     )
 }

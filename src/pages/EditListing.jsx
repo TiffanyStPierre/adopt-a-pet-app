@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
-import {addDoc, collection, serverTimestamp} from 'firebase/firestore';
+import {updateDoc, getDoc, doc, serverTimestamp} from 'firebase/firestore';
 import{db} from '../firebase.config';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import {toast} from 'react-toastify';
 import {v4 as uuidv4} from 'uuid';
 
-export default function CreateListing() {
+export default function EditListing() {
+    const [listing, setListing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         type: '',
@@ -26,6 +27,34 @@ export default function CreateListing() {
     const auth = getAuth();
     const navigate = useNavigate();
     const isMounted = useRef(true);
+    const params = useParams();
+
+    //Redirect if listing is not user's listing
+    useEffect(() => {
+        if (listing && listing.userRef !== auth.currentUser.uid) {
+            toast.error('You do not have access to edit this listing');
+            navigate('/');
+        }
+    })
+
+    //Fetch listing to edit
+    useEffect(() => {
+        setLoading(true);
+        const fetchListing = async () => {
+            const docRef = doc(db, 'listings', params.listingId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                setListing(docSnap.data());
+                setFormData({...docSnap.data()});
+                setLoading(false);
+            } else {
+                navigate('/');
+                toast.error('Sorry this listing no longer exists');
+            }
+        }
+
+        fetchListing();
+    }, [params.listingId, navigate])
 
     const { name, age, city, description, fee, images } = formData;
 
@@ -116,9 +145,11 @@ export default function CreateListing() {
 
         delete formDataCopy.images;
 
-        const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
+        // Update listing
+        const docRef = doc(db, 'listings', params.listingId);
+        await updateDoc(docRef, formDataCopy);
         setLoading(false);
-        toast.success('Your listing has been saved');
+        toast.success('Listing has been updated');
         navigate(`/${docRef.id}`);
     }
 
@@ -148,7 +179,7 @@ export default function CreateListing() {
 
     return (
         <main>
-            <h2>List Your Pet</h2>
+            <h2>Edit Your Listing</h2>
             <form onSubmit={onSubmit}>
                 <label>Pet Name
                     <input
@@ -254,7 +285,7 @@ export default function CreateListing() {
                     />
                 </label>
                 <button type='submit' className='btn-dark'>
-                    Create Pet Listing
+                    Update Listing
                 </button>
             </form>
         </main>

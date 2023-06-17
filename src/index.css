@@ -285,6 +285,7 @@ h1:hover {
 
 .browse-listings-cards {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .pet-listing-link {

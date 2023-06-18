@@ -97,7 +97,7 @@ export default function SignUp() {
                     </div>
                 </label>
 
-                <button className='sign-in-button btn-dark'>Sign Up</button>
+                <button className='sign-in-button btn-dark btn'>Sign Up</button>
             </form>
 
             <OAuth />

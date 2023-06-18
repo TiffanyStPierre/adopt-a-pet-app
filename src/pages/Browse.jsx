@@ -12,6 +12,7 @@ export default function Browse() {
     const [listings, setListings] = useState(null);
     const [lastFetchedListing, setLastFetchedListing] = useState(null);
     const [lastListingNumber, setLastListingNumber] = useState(0);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const fetchListings = async () => {
         try {
@@ -47,9 +48,6 @@ export default function Browse() {
             const lastNumber = querySnap.docs.length;
             setLastListingNumber(lastNumber);
 
-            console.log(lastListingNumber);
-            console.log(lastFetchedListing);
-
             const listings = [];
 
             querySnap.forEach((doc) => {
@@ -61,6 +59,7 @@ export default function Browse() {
 
             setListings(listings);
             setLoading(false);
+            setFormSubmitted(true);
 
 
         } catch (error) {
@@ -124,6 +123,7 @@ export default function Browse() {
 
             setListings((prevState) => [...prevState, ...listings]);
             setLoading(false);
+            setFormSubmitted(true);
 
 
         } catch (error) {
@@ -137,12 +137,13 @@ export default function Browse() {
     return (
         <div>
             <h2>Browse Adoptable Pets</h2>
-            <form onSubmit={onSubmit}>
-                <label>
+            <form onSubmit={onSubmit} className='browse-form'>
+                <label className='browse-form-label'>
                     Choose a pet type:
                     <select name='petType'
                         value={selectedPet}
                         onChange={e => setSelectedPet(e.target.value)}
+                        className='pet-select'
                     >
                         <option value="all">All</option>
                         <option value="dog">Dog</option>
@@ -152,7 +153,7 @@ export default function Browse() {
                         <option value="reptile">Reptile</option>
                     </select>
                 </label>
-                <button type='submit'>Get Pets</button>
+                <button type='submit' className='btn btn-dark get-pets-btn'>Get Pets</button>
             </form>
             {loading ? (
                 <Spinner />
@@ -168,13 +169,15 @@ export default function Browse() {
                         ))}
                     </ul>
                 </section>
+            ) : formSubmitted && listings?.length == 0 ? (
+                <p className='browse-no-listings'>Sorry, no listings found.</p>
             ) : (
-                <p>No listings found.</p>
+                <p className='browse-placeholder'></p>
             )}
-            <br/>
-            <br/>
+            <br />
+            <br />
             {lastListingNumber > 7 ?
-                <p className='load-more btn-dark' onClick={onFetchMoreListings}>Load More Pets</p>
+                <p className='load-more-btn btn-dark btn' onClick={onFetchMoreListings}>Load More Pets</p>
                 : <p></p>
             }
         </div>

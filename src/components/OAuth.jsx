@@ -36,7 +36,7 @@ export default function OAuth() {
 
     return (
         <div className='social-login'>
-            <p>Sign {location.pathname === '/sign-up' ? 'up' : 'in'} with </p>
+            <p className='social-login-text'>Sign {location.pathname === '/sign-up' ? 'up' : 'in'} with </p>
             <button className='social-icon-div' onClick={onGoogleClick}>
                 <img className='social-icon-img' src={googleIcon} alt='Google' />
             </button>

@@ -34,26 +34,31 @@ export default function Contact() {
             <h2>Contact Listing Owner</h2>
 
             {lister !== null && (
-                <main>
+                <main className='contact-page'>
                     <div>
-                        <p>Contact {lister?.name}</p>
+                        <p className='contact-name'>{`Contact ${lister?.name} about ${searchParams.get('listingName')}`}</p>
                     </div>
                     <form>
                         <div>
-                            <label>
+                            <label className='contact-message-label'>
                                 Message:
+                                <br />
                                 <textarea
                                     name='message'
                                     id='message'
-                                    className='text-area'
+                                    className='text-area contact-message-text'
                                     value={message}
                                     onChange={onChange}
+                                    autoFocus
+                                    required
+                                    cols='60'
+                                    rows='15'
                                 ></textarea>
                             </label>
                         </div>
 
                         <a href={`mailto:${lister.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
-                            <button type='button' className='btn-dark'>Send Message</button>
+                            <button type='button' className='btn-dark btn contact-btn'>Send Message</button>
                         </a>
                     </form>
                 </main>

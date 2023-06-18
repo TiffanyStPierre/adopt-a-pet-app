@@ -54,24 +54,27 @@ export default function Listing() {
                 <p className='listing-description'>{listing.description}</p>
             </div>
 
-            <div className='share-icon-div' onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                setShareLinkCopied(true);
-                setTimeout(() => {
-                    setShareLinkCopied(false);
-                }, 2000)
-            }}>
-                <img src={shareIcon} alt='Share icon'/>
-                <p>Share Listing</p>
-            </div>
+            <div className='listing-page-buttons'>
+                <div className='share-link-container'>
+                    <div className='share-icon-div' onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        setShareLinkCopied(true);
+                        setTimeout(() => {
+                            setShareLinkCopied(false);
+                        }, 2000)
+                    }}>
+                        <img src={shareIcon} alt='Share icon' />
+                        <p>Share Listing</p>
+                    </div>
 
-            {shareLinkCopied && <p className='link-copied'>Link Copied!</p>}
+                    {shareLinkCopied && <p className='link-copied'>Link Copied!</p>}
+                </div>
 
-            {auth.currentUser?.uid !== listing.userRef && <Link to={`/contact/${listing.userRef}?listingName=${listing.name}?listingId=${params.listingId}`}
-            className='btn-dark'>
-                Contact Lister
+                {auth.currentUser?.uid !== listing.userRef && <Link to={`/contact/${listing.userRef}?listingName=${listing.name}?listingId=${params.listingId}`}
+                    className='btn-dark link-btn btn contact-btn'>
+                    Contact Lister
                 </Link>}
-
+            </div>
         </main>
-        )
+    )
 }

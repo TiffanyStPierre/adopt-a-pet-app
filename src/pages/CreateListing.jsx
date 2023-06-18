@@ -149,8 +149,8 @@ export default function CreateListing() {
     return (
         <main>
             <h2>List Your Pet</h2>
-            <form onSubmit={onSubmit}>
-                <label>Pet Name
+            <form onSubmit={onSubmit} className='create-listing-form'>
+                <label className='create-listing-label'>Pet Name
                     <input
                         type='text'
                         id='name'
@@ -159,24 +159,26 @@ export default function CreateListing() {
                         maxLength='40'
                         minLength='2'
                         required
+                        className='create-listing-input'
                     />
                 </label>
-                <label>
+                <label className='create-listing-label'>
                     Pet Type
                     <select name='listingPetType'
                         value={selectedPet}
                         id='type'
                         onChange={onMutate}
                         required
+                        className='create-listing-input'
                     >
                         <option value="dog">Dog</option>
                         <option value="cat">Cat</option>
                         <option value="bird">Bird</option>
-                        <option value="smallAnimal">Small Animal</option>
+                        <option value="small animal">Small Animal</option>
                         <option value="reptile">Reptile</option>
                     </select>
                 </label>
-                <label>Pet Age (years)
+                <label className='create-listing-label'>Pet Age (years)
                     <input
                         type='number'
                         id='age'
@@ -185,9 +187,10 @@ export default function CreateListing() {
                         value={age}
                         onChange={onMutate}
                         required
+                        className='create-listing-input'
                     />
                 </label>
-                <label>City
+                <label className='create-listing-label'>City
                     <input
                         type='text'
                         id='city'
@@ -196,15 +199,17 @@ export default function CreateListing() {
                         maxLength='50'
                         minLength='5'
                         required
+                        className='create-listing-input'
                     />
                 </label>
-                <label>
+                <label className='create-listing-label'>
                     Province
                     <select name='listingProvince'
                         value={selectedProvince}
                         id='province'
                         onChange={onMutate}
                         required
+                        className='create-listing-input'
                     >
                         <option value="AB">Alberta</option>
                         <option value="BC">British Columbia</option>
@@ -221,7 +226,7 @@ export default function CreateListing() {
                         <option value="YT">Yukon</option>
                     </select>
                 </label>
-                <label>Adoption Fee
+                <label className='create-listing-label'>Adoption Fee
                     <input
                         type='number'
                         id='fee'
@@ -230,9 +235,10 @@ export default function CreateListing() {
                         value={fee}
                         onChange={onMutate}
                         required
+                        className='create-listing-input'
                     />
                 </label>
-                <label>Pet Description
+                <label className='create-listing-label'>Pet Description
                     <textarea
                         type='text'
                         id='description'
@@ -241,9 +247,10 @@ export default function CreateListing() {
                         maxLength='600'
                         minLength='25'
                         required
+                        className='create-listing-input'
                     />
                 </label>
-                <label>Upload Pet Photo (max 1)
+                <label className='create-listing-label'>Upload Pet Photo (max 1)
                     <input
                     type='file'
                     id='images'
@@ -251,9 +258,10 @@ export default function CreateListing() {
                     max='1'
                     accept='.jpg, .png, .jpeg, .webp'
                     required
+                    className='create-listing-input'
                     />
                 </label>
-                <button type='submit' className='btn-dark'>
+                <button type='submit' className='btn-dark btn'>
                     Create Pet Listing
                 </button>
             </form>

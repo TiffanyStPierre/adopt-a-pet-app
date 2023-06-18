@@ -6,7 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
 import { toast } from 'react-toastify';
 
-export default function Profile({listing}) {
+export default function Profile({ listing }) {
     const auth = getAuth();
     const user = auth.currentUser;
     const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ export default function Profile({listing}) {
 
     const navigate = useNavigate();
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchUserListings = async () => {
             const listingsRef = collection(db, 'listings');
             const q = query(listingsRef, where('userRef', '==', auth.currentUser.uid), orderBy('timestamp', 'desc'));
@@ -76,12 +76,12 @@ export default function Profile({listing}) {
     }
 
     const onDelete = async (listingId) => {
-        if(window.confirm('Are you sure you want to delete this listing?')) {
+        if (window.confirm('Are you sure you want to delete this listing?')) {
             await deleteDoc(doc(db, 'listings', listingId));
             const updatedListings = listings.filter((listing) =>
                 listing.id !== listingId);
-                setListings(updatedListings);
-                toast.success('Successfully deleted listing')
+            setListings(updatedListings);
+            toast.success('Successfully deleted listing')
         }
     }
 
@@ -90,58 +90,65 @@ export default function Profile({listing}) {
     return (
         <div className='profile-page'>
             <h2>My Profile</h2>
-            <button className='logout btn-dark' type='button' onClick={onLogout}>Log Out</button>
 
             <section>
-                <div>
-                    <h3>Profile Details</h3>
-                    <p className='change-personal-details' onClick={() => {
-                        changeDetails && onSubmit()
-                        setChangeDetails((prevState) => !prevState)
-                    }}>
-                        {changeDetails ? 'Done' : 'Change Name'}
-                    </p>
-                </div>
+
                 <div className='profile-card'>
-                    <form>
+                    <h3>Profile Details</h3>
+                    <form className='profile-form-data'>
                         <input
-                        id='name'
-                        type='text'
-                        className={!changeDetails ? 'profile-name' : 'profile-name-active'}
-                        disabled={!changeDetails}
-                        value={name}
-                        onChange={onChange}
+                            id='name'
+                            type='text'
+                            className={!changeDetails ? 'profile-name' : 'profile-name-active'}
+                            disabled={!changeDetails}
+                            value={name}
+                            onChange={onChange}
                         />
                         <input
-                        id='email'
-                        type='text'
-                        className='profile-email'
-                        disabled={true}
-                        value={email}
+                            id='email'
+                            type='text'
+                            className='profile-email'
+                            disabled={true}
+                            value={email}
                         />
                     </form>
+                    <div className='profile-update-buttons'>
+                        <p className='profile-update-btn btn btn-light' onClick={() => {
+                            changeDetails && onSubmit()
+                            setChangeDetails((prevState) => !prevState)
+                        }}>
+                            {changeDetails ? 'Done' : 'Update Name'}
+                        </p>
+                        <button
+                            onSubmit={onSubmit}
+                            className='btn btn-dark profile-update-btn'
+                        >Save Changes
+                        </button>
+                    </div>
                 </div>
 
                 {!loading && listings?.length > 0 && (
-                    <>
-                    <p>Your Listings</p>
-                    <ul>
-                        {listings.map((listing) => (
-                            <ListingItem
-                            key={listing.id}
-                            listing={listing.data}
-                            id={listing.id}
-                            onDelete={() => onDelete(listing.id, listing.imgUrls)}
-                            onEdit={() => onEdit(listing.id)}
-                            />
-                        ))}
-                    </ul>
-                    </>
-                )}    
-
-                <Link to='/create-listing' className='create-listing-link btn-dark'>
-                    Create A New Pet Listing
-                </Link>
+                    <div className='profile-listings-container'>
+                        <p className='profile-listings-header'>My Listings</p>
+                        <ul className='profile-listings'>
+                            {listings.map((listing) => (
+                                <ListingItem
+                                    key={listing.id}
+                                    listing={listing.data}
+                                    id={listing.id}
+                                    onDelete={() => onDelete(listing.id, listing.imgUrls)}
+                                    onEdit={() => onEdit(listing.id)}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                <div className='profile-listing-buttons'>
+                    <Link to='/create-listing' className='profile-listing-btn btn-dark btn link-btn'>
+                        Create New Listing
+                    </Link>
+                    <button className='btn-light btn profile-listing-btn' type='button' onClick={onLogout}>Log Out</button>
+                </div>
             </section>
         </div>
     )

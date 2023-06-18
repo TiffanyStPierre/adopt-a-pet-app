@@ -78,7 +78,7 @@ export default function SignIn() {
                     </div>
                 </label>
 
-                <button className='sign-in-button btn-dark'>Sign In</button>
+                <button className='sign-in-button btn-dark btn'>Sign In</button>
             </form>
 
             <OAuth />

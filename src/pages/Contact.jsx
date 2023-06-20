@@ -28,6 +28,7 @@ export default function Contact() {
     }, [params.listerId])
 
     const onChange = e => setMessage(e.target.value);
+    const onClick = e => document.getElementById('message').value = '';
 
     return (
         <div>
@@ -58,7 +59,7 @@ export default function Contact() {
                         </div>
 
                         <a href={`mailto:${lister.email}?Subject=${searchParams.get('listingName')}&body=${message}`}>
-                            <button type='button' className='btn-dark btn contact-btn'>Send Message</button>
+                            <button type='button' className='btn-dark btn contact-btn' onClick={onClick}>Send Message</button>
                         </a>
                     </form>
                 </main>

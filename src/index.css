@@ -443,28 +443,49 @@ h1:hover {
 
 /*  Create Listing Page  */
 
-.create-listing-form {
+.create-listing-form,
+.edit-listing-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2% 0 4% 0;
-  font-size: 1.15rem;
+  width: 75%;
+  margin: 1.5% auto;
+  font-size: 1rem;
   font-weight: 500;
 }
 
-.create-listing-label {
-  width: 80%;
+.create-listing-container,
+.edit-listing-container {
   text-align: center;
-  margin-bottom: 0.5%;
 }
 
-.create-listing-input {
-  margin: 0 1%;
+.create-listing-label,
+.edit-listing-label {
+  width: 80%;
+}
+
+.create-listing-input,
+.edit-listing-input {
+  margin: 1% 0%;
   font-weight: 500;
   font-size: 1.1rem;
   border-radius: 5px;
-  padding: 0.2% 1%;
+  padding: 0.5% 1%;
+  text-align: center;
+  min-width: 200px;
+}
+
+.create-listing-btn,
+.update-listing-btn {
+  width: 250px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 3% 0;
+  border: none;
 }
 
 /*  Profile Page  */
@@ -592,12 +613,12 @@ h1:hover {
 }
 
 .share-link-container,
-.contact-btn {
+.contact-lister-btn {
   margin: 0 2%;
 }
 
-.contact-btn {
-  width: 150px;
+.contact-lister-btn {
+  width: 175px;
 }
 
 .share-link-container p {
@@ -639,4 +660,50 @@ h1:hover {
   font-weight: 500;
   letter-spacing: 0.05rem;
   margin-bottom: 3%;
+}
+
+/*  Forgot Password Page  */
+
+.forgot-pwd-form {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.forgot-pwd-label {
+  margin: 2.5% 0 1.5% 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.forgot-pwd-input {
+  width: 225px;
+  padding: 1%;
+}
+
+.forgot-password-pg-link {
+  font-weight: 600;
+  margin: 4% 0;
+  text-decoration: none;
+  color: #033F63;
+  font-size: 1.1rem;
+}
+
+.forgot-password-pg-link:hover {
+  cursor: pointer;
+  font-weight: 700;
+  color: #89043D;
+}
+
+.reset-btn {
+  width: 200px;
+  height: 30px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.75px;
+  border: none;
+  margin: 1.5% 0 0.5% 0;
 }

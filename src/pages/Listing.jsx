@@ -70,8 +70,8 @@ export default function Listing() {
                     {shareLinkCopied && <p className='link-copied'>Link Copied!</p>}
                 </div>
 
-                {auth.currentUser?.uid !== listing.userRef && <Link to={`/contact/${listing.userRef}?listingName=${listing.name}?listingId=${params.listingId}`}
-                    className='btn-dark link-btn btn contact-btn'>
+                {auth.currentUser?.uid !== listing.userRef && <Link to={`/contact/${listing.userRef}?listingName=${listing.name}`}
+                    className='btn-dark link-btn btn contact-lister-btn'>
                     Contact Lister
                 </Link>}
             </div>

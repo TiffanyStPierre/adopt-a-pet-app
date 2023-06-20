@@ -22,20 +22,23 @@ export default function ForgotPassword() {
     return (
         <div>
             <h2>Forgot Password</h2>
-            <form onSubmit={onSubmit}>
-                <input
-                    type='email'
-                    className='email-input'
-                    placeholder='email'
-                    id='email'
-                    value={email}
-                    onChange={onChange}
-                />
-                <Link className='forgot-password-link' to='/sign-in'>
+            <form onSubmit={onSubmit} className='forgot-pwd-form'>
+                <label className='forgot-pwd-label'> Email Address
+                    <br/>
+                    <input
+                        type='email'
+                        className='forgot-pwd-input'
+                        id='email'
+                        value={email}
+                        onChange={onChange}
+                    />
+                </label>
+
+                <button className='reset-btn btn-dark btn'>Send Reset Link</button>
+
+                <Link className='forgot-password-pg-link' to='/sign-in'>
                     Go to sign in page
                 </Link>
-
-                <button className='reset-button btn-dark'>Send Reset Link</button>
             </form>
         </div>
     )

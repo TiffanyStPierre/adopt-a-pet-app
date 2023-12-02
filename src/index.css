@@ -101,21 +101,6 @@ h1:hover {
   opacity: 75%;
 }
 
-.paw-prints {
-  background-image: url(assets/header-paws-lg.webp);
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 15rem;
-}
-
-.paw-prints-cover {
-  animation-timing-function: steps(15, jump-end);
-  height: 15rem;
-  width: 25px;
-  background-color: #F2F8F6;
-  z-index: 2;
-}
-
 .header-button-list {
   display: flex;
   list-style: none;

@@ -4,6 +4,8 @@ This Adopt-A-Pet app was built with React, React Router & Firebase. It's a platf
 
 ## View a video walkthrough of the app here
 
+[![ADOPT-A-PET APP](https://img.youtube.com/vi/o3j9QXF2has/0.jpg)](https://www.youtube.com/watch?v=o3j9QXF2has)
+
 ## Screenshots
 
 ### Home Page
